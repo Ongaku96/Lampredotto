@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32106.194
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lampredotto", "Lampredotto\Lampredotto.csproj", "{B64B210E-EEC2-42E1-B7E2-2CD01C33BDBF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lampredotto", "Lampredotto\Lampredotto.csproj", "{B64B210E-EEC2-42E1-B7E2-2CD01C33BDBF}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SalsaVerde", "SalsaVerde\SalsaVerde.vcxproj", "{51858541-55F9-449F-83FF-27C0FAC9EAA8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dist", "dist", "{BEB7DDFE-274E-40D7-B90C-2D3AC961FB97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
