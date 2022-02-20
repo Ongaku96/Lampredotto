@@ -19,7 +19,8 @@ namespace Lampredotto.Database.query.decorator
         }
         public override void BuildQueryString()
         {
-            SetQueryString(component.GetQuery().GetQueryString() + (string.IsNullOrWhiteSpace(filter) ? "" : (" WHERE " + filter)));
+            var _filter = string.IsNullOrWhiteSpace(filter) ? "" : ((component.GetQuery().GetQueryString().Contains("WHERE") ?  " AND " : " WHERE ") + filter);
+            SetQueryString(component.GetQuery().GetQueryString() + _filter);
         }
     }
 }

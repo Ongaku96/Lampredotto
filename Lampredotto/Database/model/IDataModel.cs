@@ -65,7 +65,7 @@ namespace Lampredotto.Database.model
         }
         public string GetSource()
         {
-            if (settings.IsTest())
+            if (settings.IsTest)
                 return SourceTestFormat();
             return source;
         }
@@ -93,8 +93,8 @@ namespace Lampredotto.Database.model
         public IPrototype Clone()
         {
             IDataModel _clone = (IDataModel)MemberwiseClone();
-            _clone.settings.SetReadonly(settings.IsReadonly());
-            _clone.settings.SetTest(settings.IsTest());
+            _clone.settings.SetReadonly(settings.IsReadonly);
+            _clone.settings.SetTest(settings.IsTest);
             return _clone;
         }
         protected abstract void SetFields();
@@ -112,22 +112,10 @@ namespace Lampredotto.Database.model
         {
             private bool is_test { get; set; } = false;
             private bool is_readonly { get; set; } = false;
-            public void SetTest(bool _test = true)
-            {
-                is_test = _test;
-            }
-            public void SetReadonly(bool _readonly = true)
-            {
-                is_readonly = _readonly;
-            }
-            public bool IsTest()
-            {
-                return is_test;
-            }
-            public bool IsReadonly()
-            {
-                return is_readonly;
-            }
+            public void SetTest(bool _test = true) => is_test = _test;
+            public void SetReadonly(bool _readonly = true) => is_readonly = _readonly;
+            public bool IsTest => is_test;
+            public bool IsReadonly => is_readonly;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Lampredotto.Utility;
+﻿using Lampredotto.Database.model;
+using Lampredotto.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +34,7 @@ namespace Lampredotto.Database.query
             }
             public override void BuildQueryString()
             {
-                if(GetModel() != null)
+                if (GetModel() != null)
                 {
                     SetQueryString("SELECT * FROM " + GetModel().GetSource());
                 }
@@ -48,9 +49,32 @@ namespace Lampredotto.Database.query
 
             public override void BuildQueryString()
             {
-                if (GetModel() != null)
+                string _check_data_error = ResponseHandler.Instance().GetMessage(ResponseHandler.ResponseEnum.error_form);
+                if (GetModel() != null && reference.CheckData(_check_data_error) && !GetModel().settings.IsReadonly)
                 {
-                    SetQueryString("INSERT INTO " + GetModel().GetSource());
+                    try
+                    {
+                        var campi = ModelElaboration.GetFieldList(reference);
+                        var valori = ModelElaboration.GetValueList(reference);
+
+                        if (campi.Count == valori.Count)
+                        {
+                            var qs = "INSERT INTO " + GetModel().GetSource() + " (" + UCode.GetStringList(campi) + ") VALUES (" + UCode.GetStringList(valori) + ")";
+                            query.SetQueryString(qs);
+                        }
+                        else
+                        {
+                            throw ExceptionHandler.Instance.GetException("Il numero dei campi e dei valori per il modello " + GetModel().GetSource() + " non corrispondono.", ExceptionHandler.Encoder.fwsections.database, "QueryInsert", 16);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ExceptionHandler.Instance.GetException(ex.Message, ExceptionHandler.Encoder.fwsections.database, "QueryInsert", 13);
+                    }
+                }
+                else
+                {
+                    throw ExceptionHandler.Instance.GetException(_check_data_error, ExceptionHandler.Encoder.fwsections.database, "QueryInsert", 10);
                 }
             }
         }
@@ -63,9 +87,34 @@ namespace Lampredotto.Database.query
 
             public override void BuildQueryString()
             {
-                if (GetModel() != null)
                 {
-                    SetQueryString("UPDATE " + GetModel().GetSource());
+                    string _check_data_error = ResponseHandler.Instance().GetMessage(ResponseHandler.ResponseEnum.error_form);
+                    if (GetModel() != null && GetModel().CheckData(_check_data_error) && !GetModel().settings.IsReadonly)
+                    {
+                        try
+                        {
+                            var _campi = ModelElaboration.GetFieldList(reference);
+                            var _valori = ModelElaboration.GetValueList(reference);
+
+                            if (_campi.Count == _valori.Count)
+                            {
+                                var _string_update = "";
+                                for (var i = 0; i <= _campi.Count - 1; i++) { _string_update += _campi[i] + "=" + _valori[i] + ","; }
+                                _string_update = _string_update.TrimEnd(',');
+
+                                var qs = "UPDATE " + GetModel().GetSource() + " SET " + _string_update;
+                                query.SetQueryString(qs);
+                            }
+                            else throw ExceptionHandler.Instance.GetException("Il numero dei campi e dei valori per il modello " + GetModel().GetSource() + " non corrispondono.", ExceptionHandler.Encoder.fwsections.database, "QueryUpdate", 19);
+
+                        }
+                        catch (Exception ex)
+                        {
+                            throw ExceptionHandler.Instance.GetException(ex.Message, ExceptionHandler.Encoder.fwsections.database, "QueryUpdate", 12);
+                        }
+                    }
+                    else
+                        throw ExceptionHandler.Instance.GetException(_check_data_error, ExceptionHandler.Encoder.fwsections.database, "QueryUpdate", 10);
                 }
             }
         }
@@ -78,9 +127,20 @@ namespace Lampredotto.Database.query
 
             public override void BuildQueryString()
             {
-                if (GetModel() != null)
+                if (GetModel() != null && !GetModel().settings.IsReadonly)
                 {
-                    SetQueryString("DELETE FROM" + GetModel().GetSource());
+                    try
+                    {
+                        query.SetQueryString("DELETE FROM " + GetModel().GetSource());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ExceptionHandler.Instance.GetException(ex.Message, ExceptionHandler.Encoder.fwsections.database, "QueryDelete", 10);
+                    }
+                }
+                else
+                {
+                    throw ExceptionHandler.Instance.GetException("Impossibile accedere al modello di riferimento.", ExceptionHandler.Encoder.fwsections.database, "QueryDelete", 8);
                 }
             }
         }
