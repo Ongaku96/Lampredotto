@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Lampredotto</name>
+    </assembly>
+    <members>
+        <member name="T:Lampredotto.Database.connection.IConnection">
+            <summary>
+            Represent a ConnectionString
+            </summary>
+        </member>
+        <member name="M:Lampredotto.Database.connection.IConnection.GetConnectionString">
+            <summary>
+            Return the ConnectionString
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Lampredotto.Database.connection.IConnection.GetDatabaseName">
+            <summary>
+            Return the Database Name
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
