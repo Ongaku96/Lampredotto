@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Lampredotto.Utility
 {
-    public class UCode
+    public class CodingUtilities
     {
         public static PropertyInfo GetParameterByName(Type typeOfClass, string nameOfParameter)
         {

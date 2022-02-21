@@ -36,7 +36,7 @@ namespace Lampredotto.Utility
         {
             try
             {
-                return UCode.ConvertToJson(this);
+                return CodingUtilities.ConvertToJson(this);
             }
             catch (Exception)
             {
@@ -47,7 +47,7 @@ namespace Lampredotto.Utility
         {
             try
             {
-                return UCode.ConvertFromJson<Address>(_json);
+                return CodingUtilities.ConvertFromJson<Address>(_json);
             }
             catch (Exception)
             {

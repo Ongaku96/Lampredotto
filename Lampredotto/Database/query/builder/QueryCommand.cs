@@ -95,7 +95,7 @@ namespace Lampredotto.Database.query
 
         private object ReadValue(IDataModel _model, string nameParam)
         {
-            var _reader = UCode.GetValueByParameterName(_model, nameParam);
+            var _reader = CodingUtilities.GetValueByParameterName(_model, nameParam);
             switch (_reader.GetType())
             {
                 case object a when a.GetType() == typeof(SqlVarBinary):

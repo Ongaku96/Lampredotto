@@ -54,9 +54,9 @@ namespace Lampredotto.Database.model
         }
         public static string GetDBValue(IDataModel _model, string field)
         {
-            var _temp = UCode.GetValueByParameterName(_model, field);
+            var _temp = CodingUtilities.GetValueByParameterName(_model, field);
             if (field == MasterData.Campi.time_stamp) _temp = DateTime.Now;
-            return UCode.GetDBString(_temp, field);
+            return CodingUtilities.GetDBString(_temp, field);
         }
         public static string GetFilterByPrimaryKeys(IDataModel _model)
         {
@@ -68,7 +68,7 @@ namespace Lampredotto.Database.model
                 if (_list != null)
                 {
                     foreach (var _item in _list)
-                        _filter += "(" + _model.GetField(_item) + "=" + UCode.GetDBString(UCode.GetValueByParameterName(_model, _item), _model.GetField(_item)) + ") AND ";
+                        _filter += "(" + _model.GetField(_item) + "=" + CodingUtilities.GetDBString(CodingUtilities.GetValueByParameterName(_model, _item), _model.GetField(_item)) + ") AND ";
                     if (!string.IsNullOrWhiteSpace(_filter))
                         _filter = _filter.TrimEnd(' ', 'A', 'N', 'D', ' ');
                 }

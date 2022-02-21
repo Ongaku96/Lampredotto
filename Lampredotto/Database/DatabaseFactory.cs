@@ -8,7 +8,7 @@ namespace Lampredotto.Database
 {
     public class DatabaseFactory
     {
-        public static readonly Lazy<DatabaseFactory> _default = new Lazy<DatabaseFactory>(() => new DatabaseFactory());
+        private static readonly Lazy<DatabaseFactory> _default = new Lazy<DatabaseFactory>(() => new DatabaseFactory());
         public static DatabaseFactory Instance { get { return _default.Value; } } 
         private DatabaseFactory() { }
         private Dictionary<string, IDatabase> map_database { get; set; }

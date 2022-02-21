@@ -52,7 +52,7 @@ namespace Lampredotto.Database.model
                 try
                 {
                     IDataModel _model = (IDataModel)Activator.CreateInstance(foreign_keys[_key]);
-                    var _list = _reader.RunQuery<List<IDataModel>>(package_CRUD.Enum.select, _model, GetField(_fk_id_param) + "=" + UCode.GetValueByParameterName(this, _key)).Result;
+                    var _list = _reader.RunQuery<List<IDataModel>>(package_CRUD.QueryEnum.select, _model, GetField(_fk_id_param) + "=" + CodingUtilities.GetValueByParameterName(this, _key)).Result;
                     if (_list.Count > 0)
                         return (T)_list[0];
                 }
@@ -74,7 +74,7 @@ namespace Lampredotto.Database.model
             if (primary_keys != null && primary_keys.Count > 0) { return primary_keys; }
             else
             {
-                if (UCode.GetParameterByName(GetType(), MasterData.Campi.id) != null)
+                if (CodingUtilities.GetParameterByName(GetType(), MasterData.Campi.id) != null)
                 {
                     return (new string[]{ MasterData.Campi.id }).ToList();
                 }

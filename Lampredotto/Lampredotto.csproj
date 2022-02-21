@@ -10,8 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="Services\" />
+    <Folder Include="Services\structures\" />
   </ItemGroup>
 
   <ItemGroup>
