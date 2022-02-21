@@ -13,13 +13,14 @@ namespace Lampredotto.Database.query.decorator
         {
             sort = _sort;
         }
-        public override void BuildOperationData()
+        protected override string DecorateQueryString(string _query_script)
         {
-            SetOperationData(component.GetQuery().GetElaboration());
+            return _query_script + (string.IsNullOrWhiteSpace(sort) ? "" : (" ORDER BY " + sort));
         }
-        public override void BuildQueryString()
+
+        protected override IQueryElaboration DecorateOperationData(IQueryElaboration _command)
         {
-            SetQueryString(component.GetQuery().GetQueryString() + (string.IsNullOrWhiteSpace(sort) ? "" : (" ORDER BY " + sort)));
+            return _command;
         }
     }
 }

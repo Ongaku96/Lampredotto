@@ -13,14 +13,15 @@ namespace Lampredotto.Database.query.decorator
         {
             filter = _filter;
         }
-        public override void BuildOperationData()
+        protected override string DecorateQueryString(string _query_script)
         {
-            SetOperationData(component.GetQuery().GetElaboration());
+            var _filter = string.IsNullOrWhiteSpace(filter) ? "" : ((component.GetQuery().GetQueryString().Contains("WHERE") ? " AND " : " WHERE ") + filter);
+            return _query_script + _filter;
         }
-        public override void BuildQueryString()
+
+        protected override IQueryElaboration DecorateOperationData(IQueryElaboration _command)
         {
-            var _filter = string.IsNullOrWhiteSpace(filter) ? "" : ((component.GetQuery().GetQueryString().Contains("WHERE") ?  " AND " : " WHERE ") + filter);
-            SetQueryString(component.GetQuery().GetQueryString() + _filter);
+            return _command;
         }
     }
 }
